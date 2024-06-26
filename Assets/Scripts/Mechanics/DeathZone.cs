@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Platformer.Gameplay;
-using UnityEngine;
-using static Platformer.Core.Simulation;
+﻿using UnityEngine;
 
 namespace Platformer.Mechanics
 {
@@ -14,12 +10,13 @@ namespace Platformer.Mechanics
     {
         void OnTriggerEnter2D(Collider2D collider)
         {
-            var p = collider.gameObject.GetComponent<PlayerController>();
-            if (p != null)
+            IHealthHandler healthHandler = collider.gameObject.GetComponent<IHealthHandler>();
+            if (healthHandler == null)
             {
-                var ev = Schedule<PlayerEnteredDeathZone>();
-                ev.deathzone = this;
+                return;
             }
+            
+            healthHandler.Death();
         }
     }
 }

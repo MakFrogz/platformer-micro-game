@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UserInput
 {
-    public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IInputReader
+    public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IInputReader, IDirectionReader
     {
         public event Action<Vector2> OnMove;
         public event Action OnStop;
@@ -26,6 +26,9 @@ namespace UserInput
         [SerializeField] 
         private float _dragOffsetDistance;
 
+        private Vector2 _direction;
+        public Vector2 Direction => _direction.normalized;
+
         private void Start()
         {
             _stickContainerTransform.anchoredPosition = defaultPosition;
@@ -34,16 +37,17 @@ namespace UserInput
         public void OnDrag(PointerEventData eventData)
         {
             //RectTransformUtility.ScreenPointToLocalPointInRectangle(_stickTransform, eventData.position, eventData.pressEventCamera, out Vector2 offset);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_stickTransform, eventData.position, eventData.pressEventCamera, out Vector2 offset);
-            offset = Vector2.ClampMagnitude(offset, _dragOffsetDistance) / _dragOffsetDistance;
-            _stickTransform.anchoredPosition = offset * _dragMovementDistance;
-            OnMove?.Invoke(offset.normalized);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_stickTransform, eventData.position, eventData.pressEventCamera, out _direction);
+            _direction = Vector2.ClampMagnitude(_direction, _dragOffsetDistance) / _dragOffsetDistance;
+            _stickTransform.anchoredPosition = _direction * _dragMovementDistance;
+            OnMove?.Invoke(_direction.normalized);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             _stickContainerTransform.anchoredPosition = defaultPosition;
             _stickTransform.anchoredPosition = Vector2.zero;
+            _direction = Vector2.zero;
             OnStop?.Invoke();
         }
 

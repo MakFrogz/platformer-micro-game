@@ -15,34 +15,71 @@ namespace Platformer.Mechanics
         public PatrolPath path;
         public AudioClip ouch;
 
-        internal PatrolPath.Mover mover;
-        internal AnimationController control;
-        internal Collider2D _collider;
-        internal AudioSource _audio;
-        SpriteRenderer spriteRenderer;
+        private PatrolPath.Mover mover;
+        private AnimationController control;
+        private Collider2D _collider;
+        private AudioSource _audio;
+        private SpriteRenderer spriteRenderer;
+        private Health _health;
 
         public Bounds Bounds => _collider.bounds;
 
-        void Awake()
+        private void Awake()
         {
             control = GetComponent<AnimationController>();
             _collider = GetComponent<Collider2D>();
             _audio = GetComponent<AudioSource>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+            _health = GetComponent<Health>();
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            var player = collision.gameObject.GetComponent<PlayerController>();
-            if (player != null)
+            ICollision player = collision.gameObject.GetComponent<ICollision>();
+            if (player == null)
             {
-                var ev = Schedule<PlayerEnemyCollision>();
-                ev.player = player;
-                ev.enemy = this;
+                return;
+            }
+
+            var willHurtEnemy = player.Bounds.center.y >= Bounds.max.y;
+
+            if (willHurtEnemy)
+            {
+                if (_health != null)
+                {
+                    _health.Decrement();
+                    if (!_health.IsAlive)
+                    {
+                        Death();
+                        player.Bounce(2);
+                    }
+                    else
+                    {
+                        player.Bounce(7);
+                    }
+                }
+                else
+                {
+                    Death();
+                    player.Bounce(2);
+                }
+            }
+            else
+            {
+                IHealthHandler healthHandler = collision.gameObject.GetComponent<IHealthHandler>();
+                healthHandler.Damage();
             }
         }
 
-        void Update()
+        private void Death()
+        {
+            _collider.enabled = false;
+            control.enabled = false;
+            if (_audio && ouch)
+                _audio.PlayOneShot(ouch);
+        }
+
+        private void Update()
         {
             if (path != null)
             {

@@ -12,41 +12,43 @@ namespace Platformer.Mechanics
     public class TokenController : MonoBehaviour
     {
         [Tooltip("Frames per second at which tokens are animated.")]
-        public float frameRate = 12;
+        [SerializeField]
+        private float _frameRate = 12;
         [Tooltip("Instances of tokens which are animated. If empty, token instances are found and loaded at runtime.")]
-        public TokenInstance[] tokens;
+        [SerializeField]
+        private TokenInstance[] _tokens;
 
-        float nextFrameTime = 0;
+        private float _nextFrameTime = 0;
 
         [ContextMenu("Find All Tokens")]
-        void FindAllTokensInScene()
+        private void FindAllTokensInScene()
         {
-            tokens = UnityEngine.Object.FindObjectsOfType<TokenInstance>();
+            _tokens = FindObjectsOfType<TokenInstance>();
         }
 
-        void Awake()
+        private void Awake()
         {
-            //if tokens are empty, find all instances.
-            //if tokens are not empty, they've been added at editor time.
-            if (tokens.Length == 0)
-                FindAllTokensInScene();
-            //Register all tokens so they can work with this controller.
-            for (var i = 0; i < tokens.Length; i++)
+            if (_tokens.Length == 0)
             {
-                tokens[i].tokenIndex = i;
-                tokens[i].controller = this;
+                FindAllTokensInScene();
+            }
+            
+            for (var i = 0; i < _tokens.Length; i++)
+            {
+                _tokens[i].tokenIndex = i;
+                _tokens[i].controller = this;
             }
         }
 
-        void Update()
+        private void Update()
         {
             //if it's time for the next frame...
-            if (Time.time - nextFrameTime > (1f / frameRate))
+            if (Time.time - _nextFrameTime > (1f / _frameRate))
             {
                 //update all tokens with the next animation frame.
-                for (var i = 0; i < tokens.Length; i++)
+                for (var i = 0; i < _tokens.Length; i++)
                 {
-                    var token = tokens[i];
+                    var token = _tokens[i];
                     //if token is null, it has been disabled and is no longer animated.
                     if (token != null)
                     {
@@ -54,7 +56,7 @@ namespace Platformer.Mechanics
                         if (token.collected && token.frame == token.sprites.Length - 1)
                         {
                             token.gameObject.SetActive(false);
-                            tokens[i] = null;
+                            _tokens[i] = null;
                         }
                         else
                         {
@@ -63,7 +65,7 @@ namespace Platformer.Mechanics
                     }
                 }
                 //calculate the time of the next frame.
-                nextFrameTime += 1f / frameRate;
+                _nextFrameTime += 1f / _frameRate;
             }
         }
 
