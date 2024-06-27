@@ -1,4 +1,5 @@
-﻿using Platformer.Mechanics;
+﻿using Mechanics.Player;
+using Platformer.Mechanics;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -8,8 +9,7 @@ namespace Boosts
     [RequireComponent(typeof(Button))]
     public class BoostButton : MonoBehaviour
     {
-        [SerializeField] private AbilityType _abilityType;
-        [SerializeField][Min(1)] private float _abilityMultiplier;
+        [SerializeField] private BoostData _boostData;
 
         private IBoostApply _player;
         private Button _button;
@@ -32,7 +32,7 @@ namespace Boosts
 
         private void OnActivate()
         {
-            _player.ApplyBoost(_abilityType, _abilityMultiplier);
+            _player.ApplyBoost(_boostData.AbilityType, _boostData.AbilityMultiplier);
         }
 
         private void OnDestroy()
