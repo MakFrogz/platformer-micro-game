@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Mechanics.Player;
+using UnityEngine;
 using Platformer.Mechanics;
 
 public class PlatformerJumpPad : MonoBehaviour

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Mechanics.Player;
 using UnityEngine;
 using Platformer.Mechanics;
 

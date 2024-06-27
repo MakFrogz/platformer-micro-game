@@ -1,6 +1,6 @@
 ﻿using Boosts;
 
-namespace Platformer.Mechanics
+namespace Mechanics.Player
 {
     public interface IBoostApply
     {

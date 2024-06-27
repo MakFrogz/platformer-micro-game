@@ -1,3 +1,4 @@
+using Mechanics.Player;
 using Platformer.Core;
 using Platformer.Mechanics;
 

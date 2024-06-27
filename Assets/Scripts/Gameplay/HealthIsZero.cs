@@ -1,3 +1,4 @@
+using Mechanics.Health;
 using Platformer.Core;
 using Platformer.Mechanics;
 using static Platformer.Core.Simulation;

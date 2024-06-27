@@ -1,6 +1,6 @@
+using Model;
 using Platformer.Core;
 using Platformer.Mechanics;
-using Platformer.Model;
 
 namespace Platformer.Gameplay
 {

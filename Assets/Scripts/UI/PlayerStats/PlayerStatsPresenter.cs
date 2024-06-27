@@ -1,7 +1,8 @@
 ﻿using System;
+using Model;
 using VContainer.Unity;
 
-namespace Platformer.UI.PlayerStats
+namespace UI.PlayerStats
 {
     public class PlayerStatsPresenter : IStartable, IDisposable
     {

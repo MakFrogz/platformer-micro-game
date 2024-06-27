@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Boosts;
+using DefaultNamespace;
+using Platformer.Mechanics;
 using UnityEngine;
-using Platformer.Model;
-using Platformer.Core;
-using Platformer.UI.PlayerStats;
-using VContainer;
 
-namespace Platformer.Mechanics
+namespace Mechanics.Player
 {
     /// <summary>
     /// This is the main class used to implement control of the player.
     /// It is a superset of the AnimationController class, but is inlined to allow for any kind of customisation.
     /// </summary>
-    public class PlayerController : KinematicObject, IBoostApply, IDirectionApply, ICollision
+    public class PlayerController : KinematicObject, IBoostApply, IPlayerMovement, ICollision
     {
         public event Action OnDamageEvent;
         public event Action OnDieEvent;
@@ -22,6 +19,7 @@ namespace Platformer.Mechanics
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
+        public PlatformerSettings PlatformerSettings;
 
 
         /// <summary>
@@ -38,80 +36,26 @@ namespace Platformer.Mechanics
         private bool stopJump;
         public Collider2D collider2d;
         public AudioSource audioSource;
-        public Health health;
+        public Health.Health health;
         public bool controlEnabled = true;
 
         private bool _jump;
         private Vector2 _move;
         private SpriteRenderer _spriteRenderer;
-
-
-        //TODO refactor
-        readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
-
         private Dictionary<AbilityType, float> _multipliers = new Dictionary<AbilityType, float>();
+        
         public Animator Animator { get; private set; }
-
         public Bounds Bounds => collider2d.bounds;
+        public Vector2 Velocity => velocity;
 
         void Awake()
         {
-            health = GetComponent<Health>();
+            health = GetComponent<Health.Health>();
             audioSource = GetComponent<AudioSource>();
             collider2d = GetComponent<Collider2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             Animator = GetComponent<Animator>();
         }
-
-        /*private void Move(Vector2 direction)
-        {
-            if (controlEnabled)
-            {
-                move.x = direction.x;
-                if (jumpState == JumpState.Grounded && direction.y > 0f)
-                {
-                    jumpState = JumpState.PrepareToJump;
-                }
-                else if (direction.y <= 0f)
-                {
-                    stopJump = true;
-                    //Schedule<PlayerStopJump>().player = this;
-                }
-            }
-            else
-            {
-                move.x = 0;
-            }
-            UpdateJumpState();
-        }
-
-        private void Stop()
-        {
-            Move(Vector2.zero);
-        }*/
-
-
-        /*protected override void Update()
-        {
-            if (controlEnabled)
-            {
-                _move.x = Input.GetAxis("Horizontal");
-                if (jumpState == JumpState.Grounded && Input.GetButtonDown("Jump"))
-                    jumpState = JumpState.PrepareToJump;
-                else if (Input.GetButtonUp("Jump"))
-                {
-                    stopJump = true;
-                    Schedule<PlayerStopJump>().player = this;
-                }
-            }
-            else
-            {
-                _move.x = 0;
-            }
-            UpdateJumpState();
-            base.Update();
-        }*/
-
 
         protected override void Update()
         {
@@ -145,14 +89,12 @@ namespace Platformer.Mechanics
                 case JumpState.Jumping:
                     if (!IsGrounded)
                     {
-                        //Schedule<PlayerJumped>().player = this;
                         jumpState = JumpState.InFlight;
                     }
                     break;
                 case JumpState.InFlight:
                     if (IsGrounded)
                     {
-                        //Schedule<PlayerLanded>().player = this;
                         jumpState = JumpState.Landed;
                     }
                     break;
@@ -166,7 +108,7 @@ namespace Platformer.Mechanics
         {
             if (_jump && IsGrounded)
             {
-                velocity.y = jumpTakeOffSpeed * GetMultiplier(AbilityType.Jump) * model.jumpModifier;
+                velocity.y = jumpTakeOffSpeed * GetMultiplier(AbilityType.Jump) * PlatformerSettings.JumpModifier;
                 _jump = false;
             }
             else if (stopJump)
@@ -174,7 +116,7 @@ namespace Platformer.Mechanics
                 stopJump = false;
                 if (velocity.y > 0)
                 {
-                    velocity.y = velocity.y * model.jumpDeceleration;
+                    velocity.y = velocity.y * PlatformerSettings.JumpDeceleration;
                 }
             }
 
@@ -205,7 +147,17 @@ namespace Platformer.Mechanics
             return _multipliers.TryGetValue(abilityType, out float multiplier) ? multiplier : 1f;
         }
 
-        public void ApplyDirection(Vector2 direction)
+        public void ControlEnable()
+        {
+            controlEnabled = true;
+        }
+
+        public void ControlDisable()
+        {
+            controlEnabled = false;
+        }
+
+        public void SetDirection(Vector2 direction)
         {
             _move = direction;
         }

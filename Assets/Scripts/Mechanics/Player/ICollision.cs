@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Platformer.Mechanics
+namespace Mechanics.Player
 {
     public interface ICollision
     {

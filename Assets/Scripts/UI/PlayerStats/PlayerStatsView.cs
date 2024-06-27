@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Platformer.UI.PlayerStats
+namespace UI.PlayerStats
 {
     public class PlayerStatsView : MonoBehaviour
     {
