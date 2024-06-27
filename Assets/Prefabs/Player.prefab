@@ -58,7 +58,7 @@ MonoBehaviour:
   ouchAudio: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7, type: 3}
   PlatformerSettings: {fileID: 11400000, guid: 8f6fde1a583bf464dbdd25534ad6884b, type: 2}
   maxSpeed: 3
-  jumpTakeOffSpeed: 7
+  jumpTakeOffSpeed: 5
   jumpState: 0
   collider2d: {fileID: 0}
   audioSource: {fileID: 0}
