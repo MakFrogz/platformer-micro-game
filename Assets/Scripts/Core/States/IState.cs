@@ -1,4 +1,4 @@
-﻿namespace Local.Features.StateMachine
+﻿namespace Core.States
 {
     public interface IState
     {

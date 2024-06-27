@@ -1,8 +1,8 @@
 ﻿using Cinemachine;
-using Platformer.Mechanics;
+using Mechanics.Player;
 using UnityEngine;
 
-namespace Local.Features.StateMachine
+namespace Core.States
 {
     public class TeleportState : State
     {

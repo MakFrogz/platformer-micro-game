@@ -1,4 +1,7 @@
-﻿namespace Local.Features.StateMachine
+﻿using Core.Predicates;
+using Core.States;
+
+namespace Core.Transactions
 {
     public interface ITransaction
     {

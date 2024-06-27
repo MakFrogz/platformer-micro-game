@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Local.Features.StateMachine
+namespace Core.Predicates
 {
     public class FuncPredicate : IPredicate
     {

@@ -1,9 +1,9 @@
 ﻿using Cinemachine;
-using Platformer.Mechanics;
+using Mechanics.Player;
 using UnityEngine;
 using Utils;
 
-namespace Local.Features.StateMachine
+namespace Core.States
 {
     public class DeadState : State
     {
@@ -27,7 +27,9 @@ namespace Local.Features.StateMachine
             _virtualCamera.m_LookAt = null;
 
             if (_player.audioSource && _player.ouchAudio)
+            {
                 _player.audioSource.PlayOneShot(_player.ouchAudio);
+            }
             _player.Animator.SetTrigger(_hurt);
             _player.Animator.SetBool(_dead, true);
             

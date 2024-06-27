@@ -1,4 +1,4 @@
-﻿namespace Local.Features.StateMachine
+﻿namespace Core.Predicates
 {
     public interface IPredicate
     {

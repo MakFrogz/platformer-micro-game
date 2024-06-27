@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using Core.Predicates;
+using Core.States;
+using Core.Transactions;
 
-namespace Local.Features.StateMachine
+namespace Core
 {
     public class StateMachine
     {
