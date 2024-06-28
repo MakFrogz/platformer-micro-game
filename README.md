@@ -66,6 +66,7 @@ public class GameLifetimeScope : LifetimeScope
         [SerializeField] private GameMenuView _gameMenuView;
         [SerializeField] private Joystick _joystick;
         [SerializeField] private PlayerController _player;
+        [SerializeField] private BoostHandler _boostHandler;
         [SerializeField] private TokenController _tokenController;
         [SerializeField] private AudioMixer _audioMixer;
         
@@ -80,6 +81,10 @@ public class GameLifetimeScope : LifetimeScope
 
             builder
                 .RegisterComponent(_player)
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterComponent(_boostHandler)
                 .AsImplementedInterfaces();
 
             builder
