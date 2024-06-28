@@ -74,7 +74,7 @@ namespace Core
 
         private void InitializeStateMachine()
         {
-            IState setupState = new SetupState(_playerModel, _gameMenuModel, _saveLoadService, _audioService);
+            IState setupState = new SetupState(_gameMenuModel, _saveLoadService, _audioService);
             IState resetState = new ResetState(_playerModel, _tokenController);
             IState gameplayState = new GameplayState(_joystick, _playerController, _audioService);
             IState deadState = new DeadState(_virtualCamera, _playerController, _respawnTimer);

@@ -41,11 +41,6 @@ namespace Installers
                 .AsImplementedInterfaces();
 
             builder
-                .Register<PlayerModel>(Lifetime.Singleton)
-                .AsImplementedInterfaces()
-                .AsSelf();
-
-            builder
                 .Register<PlayerStatsPresenter>(Lifetime.Singleton)
                 .AsImplementedInterfaces()
                 .AsSelf();
@@ -65,11 +60,6 @@ namespace Installers
                 .AsImplementedInterfaces()
                 .AsSelf()
                 .WithParameter(_audioMixer);
-
-            builder
-                .Register<SaveLoadService>(Lifetime.Singleton)
-                .AsImplementedInterfaces()
-                .AsSelf();
         }
     }
 }
