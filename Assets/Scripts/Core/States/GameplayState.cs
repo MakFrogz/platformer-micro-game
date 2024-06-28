@@ -41,7 +41,7 @@ namespace Core.States
 
         private float GetVelocity()
         {
-            return Mathf.Max(Mathf.Abs(_player.Velocity.x), Mathf.Abs(_player.Velocity.y));
+            return Mathf.Abs(_player.Velocity.x);
         }
 
         public override void Exit()
