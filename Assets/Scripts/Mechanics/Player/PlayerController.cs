@@ -13,9 +13,6 @@ namespace Mechanics.Player
     /// </summary>
     public class PlayerController : KinematicObject, IBoostApply, IPlayerMovement, ICollision
     {
-        public event Action OnDamageEvent;
-        public event Action OnDieEvent;
-
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
