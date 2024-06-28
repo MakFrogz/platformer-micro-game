@@ -35,7 +35,7 @@ namespace Installers
 
         private void Setup(IObjectResolver resolver)
         {
-            PlayerModel playerModel = resolver.Resolve<PlayerModel>();
+            IPlayerModel playerModel = resolver.Resolve<IPlayerModel>();
             ISaveLoadService saveLoadService = resolver.Resolve<ISaveLoadService>();
             
             PlayerData playerData = saveLoadService.Load<PlayerData>(KeyConstants.PLAYER_DATA, new PlayerData(1,0,0));

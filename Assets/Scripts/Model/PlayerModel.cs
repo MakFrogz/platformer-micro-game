@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Model
 {
     [Serializable]
-    public class PlayerModel : IHealthModel, ITokenModel, IDistanceModel
+    public class PlayerModel : IHealthModel, ITokenModel, IDistanceModel, IPlayerModel
     {
         public event Action<int> OnHealthChangedEvent; 
         public event Action<int> OnTokensChangedEvent; 

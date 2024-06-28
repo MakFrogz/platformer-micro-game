@@ -7,9 +7,9 @@ namespace UI.PlayerStats
     public class PlayerStatsPresenter : IStartable, IDisposable
     {
         private readonly PlayerStatsView _view;
-        private readonly PlayerModel _model;
+        private readonly IPlayerModel _model;
 
-        public PlayerStatsPresenter(PlayerStatsView view, PlayerModel model)
+        public PlayerStatsPresenter(PlayerStatsView view, IPlayerModel model)
         {
             _view = view;
             _model = model;

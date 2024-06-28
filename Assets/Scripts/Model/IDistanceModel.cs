@@ -2,7 +2,7 @@
 {
     public interface IDistanceModel
     {
-        int Distance { get; }
-        void SetDistance(int distance);
+        public int Distance { get; }
+        public void SetDistance(int distance);
     }
 }

@@ -2,8 +2,8 @@
 {
     public interface ITokenModel
     {
-        int Tokens { get; }
-        void SetTokens(int coins);
-        void AddToken();
+        public int Tokens { get; }
+        public void SetTokens(int coins);
+        public void AddToken();
     }
 }

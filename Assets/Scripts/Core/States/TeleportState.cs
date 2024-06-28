@@ -22,8 +22,12 @@ namespace Core.States
         public override void Enter()
         {
             _player.collider2d.enabled = true;
+            
             if (_player.audioSource && _player.respawnAudio)
+            {
                 _player.audioSource.PlayOneShot(_player.respawnAudio);
+            }
+            
             _player.Teleport(_spawnPoint.position);
             _player.jumpState = PlayerController.JumpState.Grounded;
             _player.Animator.SetBool(_dead, false);

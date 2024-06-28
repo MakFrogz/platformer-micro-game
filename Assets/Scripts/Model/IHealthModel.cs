@@ -2,9 +2,9 @@
 {
     public interface IHealthModel
     {
-        int Health { get; }
-        bool IsAlive { get; }
-        void SetHealth(int health);
-        void DecreaseHealth();
+        public int Health { get; }
+        public bool IsAlive { get; }
+        public void SetHealth(int health);
+        public void DecreaseHealth();
     }
 }

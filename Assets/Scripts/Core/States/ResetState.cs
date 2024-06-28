@@ -5,10 +5,10 @@ namespace Core.States
 {
     public class ResetState : State
     {
-        private readonly PlayerModel _playerModel;
+        private readonly IPlayerModel _playerModel;
         private readonly ITokenController _tokenController;
 
-        public ResetState(PlayerModel playerModel, ITokenController tokenController)
+        public ResetState(IPlayerModel playerModel, ITokenController tokenController)
         {
             _playerModel = playerModel;
             _tokenController = tokenController;

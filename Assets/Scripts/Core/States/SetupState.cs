@@ -7,12 +7,12 @@ namespace Core.States
 {
     public class SetupState : State
     {
-        private PlayerModel _playerModel;
+        private IPlayerModel _playerModel;
         private IGameMenuModel _gameMenuModel;
         private ISaveLoadService _saveLoadService;
         private IAudioService _audioService;
 
-        public SetupState(PlayerModel playerModel, IGameMenuModel gameMenuModel, ISaveLoadService saveLoadService, IAudioService audioService)
+        public SetupState(IPlayerModel playerModel, IGameMenuModel gameMenuModel, ISaveLoadService saveLoadService, IAudioService audioService)
         {
             _playerModel = playerModel;
             _gameMenuModel = gameMenuModel;

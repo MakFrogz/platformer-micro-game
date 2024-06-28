@@ -7,11 +7,11 @@ namespace Core.States
 {
     public class ExitState : State
     {
-        private readonly PlayerModel _playerModel;
+        private readonly IPlayerModel _playerModel;
         private readonly IGameMenuModel _gameMenuModel;
         private ISaveLoadService _saveLoadService;
 
-        public ExitState(PlayerModel playerModel, IGameMenuModel gameMenuModel, ISaveLoadService saveLoadService)
+        public ExitState(IPlayerModel playerModel, IGameMenuModel gameMenuModel, ISaveLoadService saveLoadService)
         {
             _playerModel = playerModel;
             _gameMenuModel = gameMenuModel;

@@ -25,7 +25,7 @@ namespace Core
 
         private IDirectionReader _joystick;
         private PlayerController _playerController;
-        private PlayerModel _playerModel;
+        private IPlayerModel _playerModel;
         private ITokenController _tokenController;
         private IGameMenuModel _gameMenuModel;
         private IAudioService _audioService;
@@ -36,7 +36,7 @@ namespace Core
         private CountdownTimer[] _timers;
         
         [Inject]
-        private void Construct(IDirectionReader joystick, PlayerController playerController, PlayerModel playerModel, ITokenController tokenController, IGameMenuModel gameMenuModel, IAudioService audioService, ISaveLoadService saveLoadService)
+        private void Construct(IDirectionReader joystick, PlayerController playerController, IPlayerModel playerModel, ITokenController tokenController, IGameMenuModel gameMenuModel, IAudioService audioService, ISaveLoadService saveLoadService)
         {
             _joystick = joystick;
             _playerController = playerController;

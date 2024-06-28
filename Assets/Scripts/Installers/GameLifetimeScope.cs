@@ -71,22 +71,5 @@ namespace Installers
                 .AsImplementedInterfaces()
                 .AsSelf();
         }
-
-        private void Load(IObjectResolver resolver)
-        {
-            ISaveLoadService saveLoadService = resolver.Resolve<ISaveLoadService>();
-            PlayerData playerData = saveLoadService.Load<PlayerData>(KeyConstants.PLAYER_DATA, new PlayerData(1,0,0));
-            AudioData audioData = saveLoadService.Load<AudioData>(KeyConstants.AUDIO_DATA, new AudioData(false, false));
-
-            PlayerModel playerModel = resolver.Resolve<PlayerModel>();
-            IGameMenuModel gameMenuModel = resolver.Resolve<IGameMenuModel>();
-            
-            playerModel.SetHealth(playerData.Health);
-            playerModel.SetTokens(playerData.Tokens);
-            playerModel.SetDistance(playerData.Distance);
-            
-            gameMenuModel.SetSoundMute(audioData.SoundMute);
-            gameMenuModel.SetMusicMute(audioData.MusicMute);
-        }
     }
 }
