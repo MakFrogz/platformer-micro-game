@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Constants;
 using UnityEngine;
+using UnityEngine.Audio;
 
 /// <summary>
 /// This class allows an audio clip to be played during an animation state.
@@ -21,14 +23,19 @@ public class PlayAudioClip : StateMachineBehaviour
     /// The audio clip to be played.
     /// </summary>
     public AudioClip clip;
+    public AudioMixerGroup audioMixerGroup;
     float last_t = -1f;
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         var nt = stateInfo.normalizedTime;
         if (modulus > 0f) nt %= modulus;
+        audioMixerGroup.audioMixer.GetFloat(AudioConstants.SOUND_VOLUME, out float volume);
+        float linearVolume = Mathf.Pow(10.0f, volume / 20.0f);
         if (nt >= t && last_t < t)
-            AudioSource.PlayClipAtPoint(clip, animator.transform.position);
+        {
+            AudioSource.PlayClipAtPoint(clip, animator.transform.position, linearVolume);
+        }
         last_t = nt;
     }
 }
