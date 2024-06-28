@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityType: 0
   _abilityMultiplier: 1.5
+  _duration: 5

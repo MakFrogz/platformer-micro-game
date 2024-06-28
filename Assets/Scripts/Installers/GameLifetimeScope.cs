@@ -1,4 +1,5 @@
 ﻿using Audio;
+using Boosts;
 using Constants;
 using Mechanics.Player;
 using Model;
@@ -20,6 +21,7 @@ namespace Installers
         [SerializeField] private GameMenuView _gameMenuView;
         [SerializeField] private Joystick _joystick;
         [SerializeField] private PlayerController _player;
+        [SerializeField] private BoostHandler _boostHandler;
         [SerializeField] private TokenController _tokenController;
         [SerializeField] private AudioMixer _audioMixer;
         
@@ -34,6 +36,10 @@ namespace Installers
 
             builder
                 .RegisterComponent(_player)
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterComponent(_boostHandler)
                 .AsImplementedInterfaces();
 
             builder
