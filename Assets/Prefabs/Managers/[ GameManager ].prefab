@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _virtualCamera: {fileID: 0}
   _spawnPoint: {fileID: 0}
-  _cogratulationsPrefab:
+  _congratulationsPrefab:
     m_AssetGUID: 25062519ddc60954cb2a3ab944c423af
     m_SubObjectName: 
     m_SubObjectType: 

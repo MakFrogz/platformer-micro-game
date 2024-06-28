@@ -17,7 +17,7 @@ namespace Core
     {
         [SerializeField] private Cinemachine.CinemachineVirtualCamera _virtualCamera;
         [SerializeField] private Transform _spawnPoint;
-        [SerializeField] private AssetReference _cogratulationsPrefab;
+        [SerializeField] private AssetReference _congratulationsPrefab;
         [SerializeField][Min(0)] private float _respawnTime;
         [SerializeField][Min(0)] private float _congratulationsTime;
         
@@ -33,7 +33,6 @@ namespace Core
 
         private CountdownTimer _respawnTimer;
         private CountdownTimer _congratulationsTimer;
-
         private CountdownTimer[] _timers;
         
         [Inject]
@@ -69,11 +68,11 @@ namespace Core
         private void InitializeStateMachine()
         {
             IState setupState = new SetupState(_playerModel, _gameMenuModel, _saveLoadService, _audioService);
-            IState resetState = new ResetState(_playerModel);
+            IState resetState = new ResetState(_playerModel, _tokenController);
             IState gameplayState = new GameplayState(_joystick, _playerController, _audioService);
             IState deadState = new DeadState(_virtualCamera, _playerController, _respawnTimer);
             IState teleportState = new TeleportState(_virtualCamera, _playerController, _spawnPoint);
-            IState congratulationsState = new CongratulationsState(_congratulationsTimer, _cogratulationsPrefab, _tokenController);
+            IState congratulationsState = new CongratulationsState(_congratulationsTimer, _congratulationsPrefab, _tokenController);
             IState pauseState = new PauseState(_gameMenuModel, _audioService);
             IState exitState = new ExitState(_playerModel, _gameMenuModel, _saveLoadService);
 
