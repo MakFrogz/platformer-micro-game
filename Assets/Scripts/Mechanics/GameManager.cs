@@ -36,7 +36,14 @@ namespace Core
         private CountdownTimer[] _timers;
         
         [Inject]
-        private void Construct(IDirectionReader joystick, PlayerController playerController, IPlayerModel playerModel, ITokenController tokenController, IGameMenuModel gameMenuModel, IAudioService audioService, ISaveLoadService saveLoadService)
+        private void Construct(
+            IDirectionReader joystick,
+            PlayerController playerController,
+            IPlayerModel playerModel,
+            ITokenController tokenController,
+            IGameMenuModel gameMenuModel,
+            IAudioService audioService,
+            ISaveLoadService saveLoadService)
         {
             _joystick = joystick;
             _playerController = playerController;
